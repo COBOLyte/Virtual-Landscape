@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Virtual Landscape</title>
+  <link href="css/layout.css" rel="stylesheet" type="text/css">
+  <link href="css/menu.css" rel="stylesheet" type="text/css">
+  <link rel="icon" href="img/symbols.png">
+  <!-- Icons made by Good Ware from www.flaticon.com -->
+</head>
+
+<body>
+  <header>
+    <center>
+      <ul id="nav">
+        <li><a href="#"">&nbsp;Virtual&nbsp;<br>&nbsp;Land&nbsp;</a></li>
+        <li><a href="#" onclick="drawAllForms();"><span style="font-size:15px;">&nbsp;&nbsp;&#127922;&nbsp;&nbsp;</span></a></li>
+        <li><a class="hsubs" href="#">&nbsp;&nbsp;All&nbsp;&nbsp;</a>
+          <ul class="subs">
+            <li><a href="#" onclick="drawThisLand('Rocky');">Rocky</a></li>
+            <!--<li><a href="#">Chinese</a></li>-->
+            <li><a href="#" onclick="drawThisLand('Urban');">Urban</a></li>
+            <!--<li><a href="#" style="pointer-events: none; cursor: default;">(&#128295;&#128296;)</a></li>-->
+          </ul>
+        </li>
+        <li><a href="#" onclick="download_image(); play();">Save<br>Landscape</a></li>
+        <audio id="audio" src="audio/camera-shutter-click-01.mp3"></audio>
+        <!--
+        <li><a class="hsubs" href="#">(composants)</a>
+          <ul class="subs">
+          </ul>
+        </li>
+      -->
+      <div id="lavalamp"></div>
+    </ul>
+  </center>
+  <!-- Template from : http://www.script-tutorials.com/pure-css3-lavalamp-menu/ -->
+</header>
+
+<div align="center" style="padding: 1em;"><canvas id="sceneryCanvas"></canvas></div>
+
+<script type="module" src="js/main.js"></script>
+<script>
+  function download_image(){
+    var canvas = document.getElementById("sceneryCanvas");
+    image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+    var link = document.createElement('a');
+    link.download = "newLandscape.png";
+    link.href = image;
+    link.click();
+  }
+</script>
+<script>
+  function play() {
+    var audio = document.getElementById("audio");
+    audio.play();
+  }
+</script>
+</body>
+
+</html>
