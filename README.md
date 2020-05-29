@@ -282,6 +282,7 @@ Ce projet à été réalisé en solitaire, car il en a été jugé faisable, sui
 En phase de pré-production, il avait été jugé qu'un apprentissage des notions élémentaires liés au JS était nécessaire. Cela a permit une compréhension plus aisée de l'application, avant de commencer à élaborer ces premières classes.  Toutefois, il est possible de dire que les notions plus approfondies (`Case`, évènements, etc.), non présent dans le code de base n'étaient pas utiles, dans le contexte de ce projet. Aucune de ces notions n'a été utilisé. De plus, cette phase fut très chronopage *(détails dans la partie Synthèse)*.
 
 L'imagination des paysages demandait de l'inspiration. De ce fait, des recherches sur internet avaient été menés, afin d'en puiser des idées. Plusieurs types de paysages, avec des rendus différents (2D, abstrait, etc.) ont été étudiés. Cela portait sur leur couleur, forme et structure. Grâce à cette phase d'inspiration, plusieurs idées de paysages en découlait. Toutefois, il restait difficile d'imaginer avec exactitude, ce qu'il devait transparaître à l'écran. Dès lors, l'élaboration de **croquis** devenait une évidence. Ces croquis ont beaucoup aidé, malgré leurs aspect très simpliste. Aussi, elles permettent de rendre compte de certaines classes qui ont été abandonnées pendant le développement, par difficulté de dessin de certaines formes ou par leur aspect trop chronophage.
+
 ![](croquis/urban.png) ![](croquis/rocky.png)
 
 ### 3. Synthèse ###
