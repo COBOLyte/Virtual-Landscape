@@ -8,16 +8,16 @@ class Nuage extends AbstractForm {
 
   draw(ctx) {
     ctx.save();
-    
     ctx.beginPath();
 
     ctx.fillStyle = this.fillColor;
     ctx.lineWidth = this.strokeWidth;
+
     let xDepart = this.x;
     let yDepart = this.y;
     let rayon = this.width;
-    let espaceNuage = 0;
-    let sens = this.pesanteur;
+    let sensNuage = this.pesanteur;
+    let intervalleNuage = 0;
 
     ctx.globalAlpha = 0.02;
 
@@ -26,11 +26,13 @@ class Nuage extends AbstractForm {
         ctx.arc(xDepart, yDepart, (rayon/2)*j, 0, Math.PI * 2, true);
         ctx.fill();
       }
-      espaceNuage+=0.5;
-      if (sens == true) {
-        xDepart = xDepart + espaceNuage;
+
+      intervalleNuage+=0.5;
+
+      if (sensNuage == true) {
+        xDepart = xDepart+intervalleNuage;
       } else {
-        xDepart = xDepart - espaceNuage;
+        xDepart = xDepart-intervalleNuage;
       }
       ctx.beginPath();
     }
@@ -43,7 +45,6 @@ class Nuage extends AbstractForm {
 
   static buildForms() {
     const nbNuages = (Math.random()*30) + 15;
-    let sens = false;
     let color = '';
     if (Math.round(Math.random()*3)==0) {
       color = 'white';
@@ -51,12 +52,15 @@ class Nuage extends AbstractForm {
       color = '#191919';
     }
     let forms = [];
+
     for (var i=0;i<nbNuages; i++) {
+      let sensNuage = false;
       if (Math.round(Math.random())==0) {
-        sens=true;
+        sensNuage=true;
       }
-      forms.push(new Nuage(Math.random()*window.innerWidth, Math.random()*window.innerHeight/2, 10, window.innerHeight, color, '', 10, sens));
+      forms.push(new Nuage(Math.random()*window.innerWidth, Math.random()*window.innerHeight/2, 10, window.innerHeight, color, '', 10, sensNuage));
     }
+
     return forms;
   }
 

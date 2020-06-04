@@ -8,7 +8,6 @@ class Palmier extends AbstractForm {
 
 draw(ctx) {
     ctx.save();
-    
     ctx.beginPath();
 
     ctx.fillStyle = this.fillColor;
@@ -19,11 +18,13 @@ draw(ctx) {
     let height = this.height;
 
     ctx.lineWidth = 2;
+
     ctx.fillRect(xDepart,yDepart, 50, -20);
     ctx.moveTo(xDepart+15,yDepart-15);
     ctx.lineTo(xDepart+20.5,yDepart-height);
     ctx.lineTo(xDepart+30,yDepart-height);
     ctx.lineTo(xDepart+35,yDepart-12);
+
     ctx.moveTo(xDepart+25,yDepart-height);
     ctx.bezierCurveTo(xDepart+18,yDepart-(height+65), xDepart-50,yDepart-height, xDepart-80,yDepart-(height-50));
     ctx.moveTo(xDepart+25,yDepart-height);
@@ -44,15 +45,19 @@ static buildForms() {
     var planBas = window.innerHeight/1.01;
     var planHaut = window.innerHeight/1.28;
     let palmHeight = 0;
+
     if (Math.round(Math.random()) == 0) {
         palmHeight = window.innerHeight/3;
     } else {
         palmHeight = window.innerHeight/2.5;
     }
+
     let forms = [];
+
     for (var i=0;i<nbPalm; i++) {
         forms.push(new Palmier(Math.random()*window.innerWidth, (i % 2 == 0) ? planBas : planHaut, window.innerWidth, palmHeight, 'black', '', 1, true));
     }
+    
     return forms;
 }
 

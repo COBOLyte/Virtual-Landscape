@@ -8,12 +8,13 @@ class Ciel extends AbstractForm {
 
   draw(ctx) {
     ctx.save();
-    
     ctx.beginPath();
+
     ctx.lineWidth = this.strokeWidth;
     ctx.fillStyle = this.fillColor;
 
     ctx.fillRect(this.x, this.y, this.width, this.height);
+    
     ctx.fill();
     ctx.stroke();
     ctx.closePath();
@@ -24,8 +25,9 @@ class Ciel extends AbstractForm {
     let listColor = ['#191970','#4c0000'];
     const numColor = Math.floor(Math.random()*listColor.length);
     let color = listColor[numColor];
-    let leCiel = new Ciel(0, 0, window.innerWidth, window.innerHeight, color, '', 0, false);
-    let forms = [leCiel];
+
+    let forms = [new Ciel(0, 0, window.innerWidth, window.innerHeight, color, '', 0, false)];
+    
     return forms;
   }
 

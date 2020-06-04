@@ -8,24 +8,25 @@ class Montagne extends AbstractForm {
 
 draw(ctx) {
     ctx.save();
-
     ctx.beginPath();
+
     ctx.fillStyle = this.fillColor;
     ctx.lineWidth = this.strokeWidth;
+
     let xDepart = this.x;
     let yDepart = this.y;
     let width = this.width;
-
-    let nbNiveau = Math.ceil(Math.random()*3);
-    if (nbNiveau == 0) {
-        nbNiveau+=1;
-    }
 
     let ptSommet = width;
     let ptHauteur = 0;
     let montee = 0;
     let niveauActuel = 0;
     let descentNiv = 0;
+
+    let nbNiveau = Math.ceil(Math.random()*3);
+    if (nbNiveau == 0) {
+        nbNiveau+=1;
+    }
 
     if (nbNiveau == 3) {
         niveauActuel = 2.25;
@@ -51,6 +52,7 @@ draw(ctx) {
             ptSommet = ptSommet - Math.random()*30;
             montee=0;
         } while (ptSommet>0);
+        
         ctx.lineTo(0,yDepart/niveauActuel);
 
         ptSommet = width;
@@ -70,8 +72,10 @@ static buildForms() {
     let listColor = ['#1e1e1e','#140d00', '#0a000a', '#140000', '#000200', '#141400', '#0f0003', '#000014'];
     const numColor = Math.floor(Math.random()*listColor.length);
     let color = listColor[numColor];
+
     let laMontagne = new Montagne(0, window.innerHeight, window.innerWidth, window.innerHeight, color, '', 1, false);
     let forms = [laMontagne];
+    
     return forms;
 }
 

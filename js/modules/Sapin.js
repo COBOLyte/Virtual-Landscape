@@ -13,13 +13,15 @@ class Sapin extends AbstractForm {
 
     ctx.fillStyle = 'brown';
     ctx.lineWidth = this.strokeWidth;
+
     let xDepart = this.x;
     let yDepart = this.y;
+    let leaveColor = this.fillColor;
 
     ctx.fillRect(xDepart-15, yDepart+210, 25,75);
     ctx.strokeRect(xDepart-15, yDepart+210, 25,75);
 
-    ctx.fillStyle = this.fillColor;
+    ctx.fillStyle = leaveColor;
     ctx.moveTo(xDepart, yDepart);
     ctx.lineTo(xDepart-15, yDepart+75);
     ctx.lineTo(xDepart-30, yDepart+35);
@@ -51,9 +53,11 @@ class Sapin extends AbstractForm {
   static buildForms() {
     const nbSapins = (Math.random()*100) + 25;
     let forms = [];
+
     for (var i=0;i<nbSapins; i++) {
      forms.push(new Sapin(Math.random()*window.innerWidth, (i % 2 == 0) ? window.innerHeight/1.3 : window.innerHeight/1.4, 100, window.innerHeight, '#001900', '', 1.5, false));
    }
+   
    return forms;
  }
 

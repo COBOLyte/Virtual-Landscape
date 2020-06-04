@@ -8,19 +8,20 @@ class Etoile extends AbstractForm {
 
   draw(ctx) {
     ctx.save();
-    
     ctx.beginPath();
+    
     ctx.lineWidth = this.strokeWidth;
     ctx.fillStyle = this.fillColor;
-    let xDepart = this.x;
-    let yDepart = this.y;
+
     let rayon = this.width;
 
     ctx.shadowColor = 'white';
     ctx.shadowBlur = 15;
+
     ctx.fillRect(this.x, this.y, this.width, this.height);
+
     ctx.globalAlpha = 0.18;
-    ctx.arc(xDepart, yDepart, rayon/2, 0, Math.PI * 2, true);
+    ctx.arc(this.x, this.y, rayon/2, 0, Math.PI * 2, true);
 
     ctx.fill();
     ctx.closePath();
@@ -30,11 +31,12 @@ class Etoile extends AbstractForm {
   static buildForms() {
     let nbEtoiles = (Math.random()*500)+250;
     let forms = [];
-    let tailleEtoiles = 0;
+
     for(let i=0;i<nbEtoiles;i++) {
-      tailleEtoiles = (Math.random()*3)+1;
-      forms.push(new Etoile(Math.random()*window.innerWidth, (Math.random()*window.innerHeight), tailleEtoiles, tailleEtoiles, '#fff', '', 0, false));
+      let tailleEtoile = (Math.random()*3)+1;
+      forms.push(new Etoile(Math.random()*window.innerWidth, (Math.random()*window.innerHeight), tailleEtoile, tailleEtoile, '#fff', '', 0, false));
     }
+
     return forms;
   }
 

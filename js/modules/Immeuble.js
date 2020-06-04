@@ -1,4 +1,5 @@
 import {AbstractForm} from './AbstractForm.js';
+import {ToolBox} from './ToolBox.js';
 
 class Immeuble extends AbstractForm {
 
@@ -7,20 +8,10 @@ class Immeuble extends AbstractForm {
   }
 
   draw(ctx) {
-    function randomColor() {
-      let backColor = ['#'];
-      for (let i=1; i<7; i++) {
-        const colorCodeRepl = [0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F'];
-        let code = Math.random()*15;
-        code = Math.round(code);
-        backColor.push(colorCodeRepl[code]);
-      }
-      backColor = backColor.join('');
-      return backColor;
-    }
 
+    //Fonctions-début//
     function buildDoor() {
-      ctx.fillStyle = randomColor();
+      ctx.fillStyle = porteColor;
       let xDepartDoor = xDepart+(width/2.5);
       let yDepartDoor = yDepart;
       let doorWidth = width/5;
@@ -38,18 +29,23 @@ class Immeuble extends AbstractForm {
         doorHeight-=8;
       }
 
+      //Base//
       ctx.strokeRect(xDepartDoor, yDepartDoor, doorWidth, doorHeight);
       ctx.fillRect(xDepartDoor, yDepartDoor, doorWidth, doorHeight);
+
+      //Poignée//
       ctx.strokeStyle = 'grey';
       ctx.lineWidth = 3;
       ctx.moveTo(xDepartDoor+5, yDepartDoor+(doorHeight/4));
       ctx.lineTo(xDepartDoor+5, yDepartDoor+(doorHeight/1.5));
-      ctx.fillStyle = glassColor;
+
+      //Verre//
+      ctx.fillStyle = 'black';
       ctx.fillRect(xDepartDoor+(doorWidth/3), yDepartDoor-2, doorWidth/1.9, doorHeight/1.15);
     }
 
     function buildDoubleDoor() {
-      ctx.fillStyle = randomColor();
+      ctx.fillStyle = porteColor;
       let xDepartDoor = xDepart+(width/3);
       let yDepartDoor = yDepart;
       let doorWidth = width/2.65;
@@ -67,15 +63,20 @@ class Immeuble extends AbstractForm {
         doorHeight-=8;
       }
 
+      //Base//
       ctx.strokeRect(xDepartDoor, yDepartDoor, doorWidth, doorHeight);
       ctx.fillRect(xDepartDoor, yDepartDoor, doorWidth, doorHeight);
+
+      //Poignées//
       ctx.moveTo(xDepartDoor+(doorWidth/2),yDepartDoor);
       ctx.lineTo(xDepartDoor+(doorWidth/2),yDepartDoor+(doorHeight));
       ctx.moveTo(xDepartDoor+(doorWidth/2.3), yDepartDoor+(doorHeight/4));
       ctx.lineTo(xDepartDoor+(doorWidth/2.3), yDepartDoor+(doorHeight/1.5));
       ctx.moveTo(xDepartDoor+(doorWidth/1.75), yDepartDoor+(doorHeight/4));
       ctx.lineTo(xDepartDoor+(doorWidth/1.75), yDepartDoor+(doorHeight/1.5));
-      ctx.fillStyle = glassColor;
+
+      //Verres//
+      ctx.fillStyle = 'black';
       ctx.fillRect(xDepartDoor+(doorWidth/1.55), yDepartDoor-2, doorWidth/3.5, doorHeight/1.15);
       ctx.fillRect(xDepartDoor+(doorWidth/2.75), yDepartDoor-2, -doorWidth/3.5, doorHeight/1.15);
     }
@@ -117,21 +118,24 @@ class Immeuble extends AbstractForm {
 
       return espaceProportionFen;
     }
+    //Fonctions-fin//
 
     ctx.save();
-
     ctx.beginPath();
-    let baseColor = randomColor();
-    ctx.fillStyle = baseColor;
+
     ctx.lineWidth = this.strokeWidth;
     ctx.lineWidth = 2;
     ctx.lineCap = 'round';
 
+    var workBox = new ToolBox();
     var xDepart = this.x;
     var yDepart = this.y;
     var width = this.width;
     var height = this.height;
-    const glassColor = 'black';
+
+    var batimentColor = this.fillColor;
+    var porteColor = workBox.randomColor();
+    var verreColor = this.strokeColor;
 
     if (width<75) {
       width+=85;
@@ -141,6 +145,7 @@ class Immeuble extends AbstractForm {
     }
 
     //Base//
+    ctx.fillStyle = batimentColor;
     ctx.strokeStyle = 'black';
     ctx.strokeRect(xDepart, yDepart, width, height);
     ctx.fillRect(xDepart, yDepart, width, height);
@@ -154,6 +159,13 @@ class Immeuble extends AbstractForm {
 
     //Portes//
     if (Math.round(Math.random()) == 0) {
+      if (Math.round(Math.random()*3)==0) {
+        ctx.fillStyle = verreColor;
+        ctx.shadowBlur = 15;
+      } else {
+        ctx.fillStyle = 'black';
+        ctx.shadowBlur = 0;
+      }
       buildDoor();
     } else {
       buildDoubleDoor();
@@ -165,12 +177,11 @@ class Immeuble extends AbstractForm {
     let espaceProportionFenH = calculEspaceProportionHorizontal();
     let espaceProportionFenV = calculEspaceProportionVertical();
 
-    ctx.shadowColor = 'yellow';
-
+    ctx.shadowColor = verreColor;
     do {
       do {
         if (Math.round(Math.random()*3)==0) {
-          ctx.fillStyle = 'yellow';
+          ctx.fillStyle = verreColor;
           ctx.shadowBlur = 15;
         } else {
           ctx.fillStyle = 'black';
@@ -193,11 +204,16 @@ class Immeuble extends AbstractForm {
   }
 
   static buildForms() {
+    var workBox = new ToolBox();
+    var verreColor = 'yellow';
     const nbImmeubles = (Math.random()*20) + 10;
     let forms = [];
+
     for (let i=0;i<nbImmeubles; i++) {
-      forms.push(new Immeuble(Math.random()*window.innerWidth, window.innerHeight/1.312, (Math.random()*window.innerWidth)/6, -((Math.random()*window.innerHeight)/2.5), '', '', 1, true));
+      var batimentColor = workBox.randomColor();
+      forms.push(new Immeuble(Math.random()*window.innerWidth, window.innerHeight/1.312, (Math.random()*window.innerWidth)/6, -((Math.random()*window.innerHeight)/2.5), batimentColor, verreColor, 1, true));
     }
+    
     return forms;
   }
 

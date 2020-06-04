@@ -8,20 +8,19 @@ class Lampadaire extends AbstractForm {
 
 draw(ctx) {
     ctx.save();
-    
     ctx.beginPath();
+
     ctx.fillStyle = this.fillColor;
     ctx.lineWidth = this.strokeWidth;
 
-    let xDepart = Math.random()*window.innerWidth;
+    let xDepart = this.x;
     let yDepart = this.y;
     let width = this.height;
     let rayon = this.width;
+
     ctx.lineWidth = 3.5;
-    ctx.beginPath();
     
     ctx.arc(xDepart, yDepart, 15, 0, 3.15, true);
-    ctx.fill();
 
     ctx.moveTo(xDepart,yDepart);
     ctx.lineCap = 'butt';
@@ -49,6 +48,7 @@ static buildForms() {
     let planBas = window.innerHeight/1.01;
     let planHaut = window.innerHeight/1.28;
     let lampHeight = 0;
+
     if (Math.round(Math.random()) == 0) {
         lampHeight = window.innerHeight/4;
     } else {
@@ -56,9 +56,11 @@ static buildForms() {
     }
 
     let forms = [];
+
     for (let i=0;i<nbLamp; i++) {
-      forms.push(new Lampadaire(0, (i % 2 == 0) ? planBas : planHaut, 50, lampHeight, 'black', '', 1, true));
+      forms.push(new Lampadaire(Math.random()*window.innerWidth, (i % 2 == 0) ? planBas : planHaut, 50, lampHeight, 'black', '', 1, true));
   }
+  
   return forms;
 }
 

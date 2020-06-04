@@ -13,8 +13,6 @@ class Lune extends AbstractForm {
 
     ctx.fillStyle = this.fillColor;
     ctx.lineWidth = this.strokeWidth;
-    let xDepart = this.x;
-    let yDepart = this.y;
     let rayon = this.width;
 
     ctx.shadowBlur = 15;
@@ -25,7 +23,7 @@ class Lune extends AbstractForm {
       ctx.shadowColor = 'white';
     }
 
-    ctx.arc(xDepart, yDepart, rayon, 0, Math.PI * 2, true);
+    ctx.arc(this.x, this.y, rayon, 0, Math.PI * 2, true);
 
     ctx.fill();
     ctx.closePath();
@@ -33,8 +31,10 @@ class Lune extends AbstractForm {
   }
 
   static buildForms() {
+
     let laLune = new Lune(window.innerWidth/2, window.innerHeight/6, 75, window.innerHeight, '#fffacd', '', 1, false);
     let forms = [laLune];
+    
     return forms;
   }
 

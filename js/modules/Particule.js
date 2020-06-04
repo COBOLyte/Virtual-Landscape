@@ -8,19 +8,20 @@ class Particule extends AbstractForm {
 
   draw(ctx) {
     ctx.save();
-    
     ctx.beginPath();
+
     ctx.lineWidth = this.strokeWidth;
     ctx.fillStyle = this.fillColor;
-    let xDepart = this.x;
-    let yDepart = this.y;
+
     let rayon = this.width;
 
     ctx.shadowColor = 'white';
     ctx.shadowBlur = 15;
+
     ctx.fillRect(this.x, this.y, this.width, this.height);
+
     ctx.globalAlpha = 0.18;
-    ctx.arc(xDepart, yDepart, rayon/2, 0, Math.PI * 2, true);
+    ctx.arc(this.x, this.y, rayon/2, 0, Math.PI * 2, true);
 
     ctx.fill();
     ctx.closePath();
@@ -32,12 +33,14 @@ class Particule extends AbstractForm {
     const numColor = Math.floor(Math.random()*listColor.length);
     let color = listColor[numColor];
     let nbParticules = (Math.random()*500)+250;
-    let forms = [];
     let tailleParticules = 0;
+    let forms = [];
+
     for(let i=0;i<nbParticules;i++) {
       tailleParticules = (Math.random()*3)+1;
       forms.push(new Particule(Math.random()*window.innerWidth, (Math.random()*window.innerHeight), tailleParticules, tailleParticules, color, '', 0, false));
     }
+    
     return forms;
   }
 
