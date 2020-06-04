@@ -9,7 +9,7 @@
 
 - Initiation au **Javascript** et à l'élément HTML **`Canvas`**
 - Développement de la créativité
-- Mise en situation de la prise en main d'une application préconçue
+- Mise en situation dans la prise en main d'une application préconçue
 
 ### Historique ###
 
