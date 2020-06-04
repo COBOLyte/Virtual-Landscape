@@ -144,7 +144,7 @@ class Immeuble extends AbstractForm {
       height-=100;
     }
 
-    //Base//
+    //Base du batiment//
     ctx.fillStyle = batimentColor;
     ctx.strokeStyle = 'black';
     ctx.strokeRect(xDepart, yDepart, width, height);
