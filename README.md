@@ -11,6 +11,12 @@
 - Développement de la créativité
 - Mise en situation dans la prise en main d'une application préconçue
 
+### Contexte ###
+
+Le projet **Virtual Landscape** consistait en la prise en main d'une petite application Javascript, afin de l'améliorer : [https://github.com/sio-melun/virtual-landscape](https://github.com/sio-melun/virtual-landscape "Lien du projet initial"). Elle devait permettre de générer différents paysages, aléatoirement. Cela implique donc que les éléments au sein du paysage généré, doivent être différent, du point de vue de leur nature ou de leur apparence: localisations, formes ou couleurs différentes, par exemple.
+
+*Ce projet a été réalisé par des étudiants en BTS SIO (2019-2020), au sein du **Lycée Léonard de Vinci, 2bis Rue Edouard Branly, 77 000 Melun**, dans le cadre d'un projet de développement (PPE) de 1ère année-2nd semestre.*
+
 ### Historique ###
 
 **Javascript** (souvent abrégé "JS") est un langage de script léger, orienté objet, principalement utilisé dans les pages web, avec le HTML et le CSS. Il permet de dynamiser les pages en lançant des évènements à des temps déterminés, des animations 2D/3D, etc. Les pages web perdent alors, leur rigidité et leur staticité, au profit de visuels et intéractions plus vives.
@@ -27,7 +33,7 @@
 
 ### 1. Installation ###
 
-**Virtual Landscape** est conçu sous la forme d'un site web avec du Javascript intégré. L'application nécessite donc d'être placé derrière un serveur HTTP. Pour ce faire, vous pouvez installer [Laragon](https://laragon.org/ "Installer Laragon"), un environnement de développement local.
+**Virtual Landscape** est conçu sous la forme d'une application avec du Javascript intégré. L'application nécessite donc d'être placé derrière un serveur HTTP. Pour ce faire, vous pouvez installer [Laragon](https://laragon.org/ "Installer Laragon"), un environnement de développement local.
 
 - Téléchargez l'ensemble des fichiers depuis le dépôt Git. Les fichiers devront être placés dans le dossier `www`, dans le cas de Laragon.
 - Veillez à lancer les serveurs HTTP sur Laragon.
@@ -45,16 +51,26 @@
 
 **4:** Rendu du paysage
 
-#### Analyse ####
+### 3. Screenshots ###
+
+Plusieurs exemples de paysages obtenables.
+![](img/screen1.png) ![](img/screen2.png)
+
+![](img/screen3.png) ![](img/screen4.png)
+
+
+## Rapport de projet ##
+
+### 1. Analyse ###
 
 `index.html` :
 
 Permet l'affichage de la barre de navigation.
 
-      <header>
+    <header>
     <center>
       <ul id="nav">
-    <li><a href="#"">&nbsp;Virtual&nbsp;<br>&nbsp;Land&nbsp;</a></li>
+    <li><a href="#">&nbsp;Virtual&nbsp;<br>&nbsp;Land&nbsp;</a></li>
     <li><a href="#" onclick="drawAllForms();"><span style="font-size:15px;">&nbsp;&nbsp;&#127922;&nbsp;&nbsp;</span></a></li>
     <li><a class="hsubs" href="#">&nbsp;&nbsp;All&nbsp;&nbsp;</a>
       <ul class="subs">
@@ -64,7 +80,7 @@ Permet l'affichage de la barre de navigation.
     <!--<li><a href="#" style="pointer-events: none; cursor: default;">(&#128295;&#128296;)</a></li>-->
       </ul>
     </li>
-    <li><a href="#" onclick="download_image(); play();">Save<br>Landscape</a></li>
+    <li><a href="#" onclick="download_image();">Save<br>Landscape</a></li>
     <audio id="audio" src="audio/camera-shutter-click-01.mp3"></audio>
     <!--
     <li><a class="hsubs" href="#">(composants)</a>
@@ -80,21 +96,25 @@ Permet l'affichage de la barre de navigation.
 
 `onclick="drawAllForms();"` permet de lancer la mise en forme du Canvas. Elle est issue d'une fonction, créée dans le fichier `main.js`. Il en va de même pour `onclick="drawThisLand('Rocky');"`, mais lui, permet la génération d'un paysage spécifique.
 
-    <a href="#" onclick="download_image(); play();">
+    <a href="#" onclick="download_image();">
 Permet l'enregistrement du canvas, sous forme d'image, grâce à un script, présent dans le même fichier:
 
-    <script>
-      function download_image(){
-    var canvas = document.getElementById("sceneryCanvas");
-    image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-    var link = document.createElement('a');
-    link.download = "newLandscape.png";
-    link.href = image;
-    link.click();
+      function play() {
+    let audio = document.getElementById("audio");
+    audio.play();
       }
-    </script>
-
-    <audio id="audio" src="audio/camera-shutter-click-01.mp3"></audio>
+    
+      //https://www.sanwebe.com/snippet/downloading-canvas-as-image-dataurl-on-button-click//
+      function download_image(){
+    	let canvas = document.getElementById("sceneryCanvas");
+    	image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+    	let link = document.createElement('a');
+    	link.download = "newLandscape.png";
+    	link.href = image;
+    	link.click();
+    
+    play();
+      }
 La balise `audio` génère un clic sonore. Feature rajouté dans un simple soucis de détail.
 
 Permet la création de l'élément Canvas et l'exportation du fichier `main.js`, nécessaire pour la mise en forme du Canvas.
@@ -127,51 +147,64 @@ Permet l'importation des différentes classes créées dans le dossier `modules`
 Fonctions permettant de rentrer dans un tableau `forms`, les différentes formes issues des classes. **Pour Ajouter/Supprimer une classe, c'est ici qu'il faut agir**.
 
     function urbanScene() {
+      let forms = [];
       forms = ArrierePlan.buildForms();
       forms = forms.concat(Soleil.buildForms());
       forms = forms.concat(Immeuble.buildForms());
       forms = forms.concat(Route.buildForms());
       forms = forms.concat(Lampadaire.buildForms());
+    
       if (Math.round(Math.random())==0) {
     forms = forms.concat(Ballon.buildForms());
       }
+    
       forms = forms.concat(Palmier.buildForms());
+    
+      return forms;
     }
     
     function rockyScene() {
-      let snowAppear = false;
+      let forms = [];
+      let snowDisplay = false;
+    
       if (Math.round(Math.random()*3)==0) {
-    snowAppear = true;
+    snowDisplay = true;
       }
     
       forms = Ciel.buildForms();
-      if (snowAppear == false) {
+    
+      if (snowDisplay == false) {
     forms = forms.concat(Etoile.buildForms());
       }
+    
       if (Math.round(Math.random()*3)==0) {
     forms = forms.concat(Comete.buildForms());
       }
+    
       forms = forms.concat(Lune.buildForms());
       forms = forms.concat(Nuage.buildForms());
       forms = forms.concat(Montagne.buildForms());
       forms = forms.concat(Sapin.buildForms());
-      if (snowAppear == true) {
+      
+      if (snowDisplay == true) {
     if (Math.round(Math.random())==0) {
       forms = forms.concat(Particule.buildForms());
     } else {
       forms = forms.concat(Neige.buildForms());
     }
       }
+      return forms;
     }
 
 Construction des formes.
 
     function buildForms() {
       let numLand = Math.round(Math.random());
+      let forms = null;
       if (numLand == 0) {
-    urbanScene();
+    forms = urbanScene();
       } else {
-    rockyScene();
+    forms = rockyScene();
       }
       return forms;
     }
@@ -185,16 +218,16 @@ Mise en forme du rendu sur le canvas.
 Fonctions nécessaires pour permettre la sélection du type de paysage.
 
     function chooseLand(whichLand) {
+      let forms = null;
       if (whichLand === 'Rocky') {
-    rockyScene();
+    forms = rockyScene();
       } else if (whichLand === 'Urban') {
-    urbanScene();
+    forms = urbanScene();
       }
       return forms;
     }
 
     function drawThisLand(whichLand) {
-      chooseLand(whichLand);
       drawForms(chooseLand(whichLand));
     }
 
@@ -256,20 +289,6 @@ Fonctions nécessaires pour permettre la sélection du type de paysage.
     }
     
     export {Soleil};
-
-### 3. Screenshots ###
-
-Plusieurs exemples de paysages obtenables.
-![](img/screen1.png) ![](img/screen2.png)
-
-![](img/screen3.png) ![](img/screen4.png)
-
-
-## Rapport de projet ##
-
-### 1. Contexte ###
-
-Le projet **Virtual Landscape** consistait en la prise en main d'une petite application Javascript, afin de l'améliorer. Elle devait permettre de générer différents paysages, aléatoirement. Cela implique donc que les éléments au sein du paysage généré, doivent être différent, du point de vue de leur nature ou de leur apparence: localisations, formes ou couleurs différentes, par exemple.
 
 ### 2. Organisation ###
 
