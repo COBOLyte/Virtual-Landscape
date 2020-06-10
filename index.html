@@ -25,7 +25,7 @@
             <!--<li><a href="#" style="pointer-events: none; cursor: default;">(&#128295;&#128296;)</a></li>-->
           </ul>
         </li>
-        <li><a href="#" onclick="download_image(); play();">Save<br>Landscape</a></li>
+        <li><a href="#" onclick="download_image();">Save<br>Landscape</a></li>
         <audio id="audio" src="audio/camera-shutter-click-01.mp3"></audio>
         <!--
         <li><a class="hsubs" href="#">(composants)</a>
@@ -43,19 +43,21 @@
 
 <script type="module" src="js/main.js"></script>
 <script>
+  function play() {
+    let audio = document.getElementById("audio");
+    audio.play();
+  }
+
+  //https://www.sanwebe.com/snippet/downloading-canvas-as-image-dataurl-on-button-click//
   function download_image(){
-    var canvas = document.getElementById("sceneryCanvas");
+    let canvas = document.getElementById("sceneryCanvas");
     image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-    var link = document.createElement('a');
+    let link = document.createElement('a');
     link.download = "newLandscape.png";
     link.href = image;
     link.click();
-  }
-</script>
-<script>
-  function play() {
-    var audio = document.getElementById("audio");
-    audio.play();
+
+    play();
   }
 </script>
 </body>
